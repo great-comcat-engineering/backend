@@ -21,7 +21,7 @@ var (
 )
 
 // Handler is the main entry point for the serverless function.
-func Handler(w http.ResponseWriter, r *http.Request) {
+func AuthLoginHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		handleGet(w, r)
