@@ -13,4 +13,4 @@ This is a backend for the Great Comcat Engineering project. It is a RESTful API 
 
 ## Endpoints
 
-View the API documentation [here](https://gce-backend.vercel.app/swagger/index.html)
+View the API documentation [here](https://api.greatcomcatengineering.com/swagger/index.html)

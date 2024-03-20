@@ -12,9 +12,9 @@ import (
 // @title Great Comcat Engineering API
 // @version 1
 // @description This is the API for the Great Comcat Engineering project.
-// @host localhost:8080
+// @host gce-backend.vercel.app
 // @BasePath /v0
-// @schemes http https
+// @schemes https
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
