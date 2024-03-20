@@ -1,4 +1,4 @@
-package main
+package handler
 
 import (
 	"github.com/gin-gonic/gin"
@@ -6,6 +6,7 @@ import (
 	"greatcomcatengineering.com/backend/database"
 	"greatcomcatengineering.com/backend/routes"
 	"log"
+	"net/http"
 )
 
 // @title Great Comcat Engineering API
@@ -17,7 +18,7 @@ import (
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
-func main() {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	err := configs.LoadConfig()
 	if err != nil {
 		log.Fatal("Error loading config: ", err)
@@ -33,6 +34,5 @@ func main() {
 		routes.UserRoutes(versionControlled)
 		routes.ProductRoutes(versionControlled)
 	}
-	router.Run(configs.AppConfig().App.Host + configs.AppConfig().App.Port)
-	database.DisconnectFromMongoDB()
+	router.ServeHTTP(w, r)
 }

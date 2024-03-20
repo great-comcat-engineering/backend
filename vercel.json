@@ -1,7 +1,13 @@
 {
     "build": {
-      "env": {
-        "GO_BUILD_FLAGS": "-ldflags '-s -w'"
-      }
-    }
-  }
+        "env": {
+            "GO_BUILD_FLAGS": "-ldflags '-s -w'"
+        }
+    },
+    "rewrites": [
+        {
+            "source": "(.*)",
+            "destination": "api/vercel.go"
+        }
+    ]
+}

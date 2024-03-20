@@ -1,0 +1,312 @@
+basePath: /v0
+definitions:
+  models.Category:
+    enum:
+    - Fryers
+    - Other
+    type: string
+    x-enum-varnames:
+    - CategoryFryers
+    - CategoryOther
+  models.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.Product:
+    properties:
+      category:
+        $ref: '#/definitions/models.Category'
+      countInStock:
+        type: integer
+      description:
+        type: string
+      id:
+        type: string
+      image:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+    required:
+    - countInStock
+    - name
+    - price
+    type: object
+  models.RegisterRequest:
+    properties:
+      email:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  models.User:
+    properties:
+      accountType:
+        allOf:
+        - $ref: '#/definitions/models.UserType'
+        enum:
+        - admin
+        - default
+      address:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      email:
+        type: string
+      firstName:
+        type: string
+      id:
+        type: string
+      lastName:
+        type: string
+      phone:
+        type: string
+      postalCode:
+        type: string
+    required:
+    - accountType
+    - email
+    type: object
+  models.UserType:
+    enum:
+    - admin
+    - default
+    type: string
+    x-enum-varnames:
+    - AdminUser
+    - DefaultUser
+host: localhost:8080
+info:
+  contact: {}
+  description: This is the API for the Great Comcat Engineering project.
+  title: Great Comcat Engineering API
+  version: "1"
+paths:
+  /product/all:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all products from the database.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Products retrieved successfully
+          schema:
+            items:
+              $ref: '#/definitions/models.Product'
+            type: array
+        "500":
+          description: Internal Server Error
+      summary: Get all products
+      tags:
+      - products
+  /product/create:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new product in the database.
+      parameters:
+      - description: Product object
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/models.Product'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Product created successfully
+          schema:
+            $ref: '#/definitions/models.Product'
+        "400":
+          description: Invalid request payload
+        "500":
+          description: Internal Server Error
+      summary: Create a product
+      tags:
+      - products
+  /product/createMany:
+    post:
+      consumes:
+      - application/json
+      description: Creates multiple products in the database.
+      parameters:
+      - description: Array of product objects
+        in: body
+        name: products
+        required: true
+        schema:
+          items:
+            $ref: '#/definitions/models.Product'
+          type: array
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Products created successfully
+          schema:
+            items:
+              $ref: '#/definitions/models.Product'
+            type: array
+        "400":
+          description: Invalid request payload
+        "500":
+          description: Internal Server Error
+      summary: Create multiple products
+      tags:
+      - products
+  /user/{email}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a user by the provided email.
+      parameters:
+      - description: User Email
+        in: path
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User retrieved successfully
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid or missing email
+        "404":
+          description: User not found
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get user by email
+      tags:
+      - users
+  /user/all:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves all users from the database.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Users retrieved successfully
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "401":
+          description: Unauthorized access
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get all users
+      tags:
+      - users
+  /user/create:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new user with the provided information.
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: User created successfully
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Invalid request payload
+        "500":
+          description: Internal Server Error
+      summary: Create new user
+      tags:
+      - users
+  /user/current:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the current user from the database.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: User retrieved successfully
+          schema:
+            $ref: '#/definitions/models.User'
+        "401":
+          description: Unauthorized or invalid user ID
+        "500":
+          description: Internal Server Error
+      security:
+      - BearerAuth: []
+      summary: Get current user
+      tags:
+      - users
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      description: Logs in the user with the provided email and password.
+      parameters:
+      - description: User Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login successful, token returned
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Invalid request payload
+        "401":
+          description: Invalid email or password
+        "500":
+          description: Internal Server Error
+      summary: Login
+      tags:
+      - users
+schemes:
+- http
+- https
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

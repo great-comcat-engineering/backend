@@ -1,0 +1,48 @@
+[{
+    "name": "Test product 1",
+    "description": "A 24oz, BPA-free, stainless steel water bottle that keeps drinks cold for up to 48 hours.",
+    "price": 29.99,
+    "countInStock": 2,
+    "category": "Other",
+    "image": "https://example.com/images/product-12345.png"
+  },
+  {
+    "name": "Test product 2",
+    "description": "A 24oz, BPA-free, stainless steel water bottle that keeps drinks cold for up to 48 hours.",
+    "price": 39.99,
+    "countInStock": 10,
+    "category": "Other",
+    "image": "https://example.com/images/product-12345.png"
+  },
+  {
+    "name": "Test product 3",
+    "description": "A 24oz, BPA-free, stainless steel water bottle that keeps drinks cold for up to 48 hours.",
+    "price": 2.99,
+    "countInStock": 10,
+    "category": "Other",
+    "image": "https://example.com/images/product-12345.png"
+  },
+  {
+    "name": "Test product 4",
+    "description": "A 24oz, BPA-free, stainless steel water bottle that keeps drinks cold for up to 48 hours.",
+    "price": 29.99,
+    "countInStock": 2,
+    "category": "Other",
+    "image": "https://example.com/images/product-12345.png"
+  },
+  {
+    "name": "Test product 5",
+    "description": "A 24oz, BPA-free, stainless steel water bottle that keeps drinks cold for up to 48 hours.",
+    "price": 39.99,
+    "countInStock": 10,
+    "category": "Other",
+    "image": "https://example.com/images/product-12345.png"
+  },
+  {
+    "name": "Test product 6",
+    "description": "A 24oz, BPA-free, stainless steel water bottle that keeps drinks cold for up to 48 hours.",
+    "price": 2.99,
+    "countInStock": 10,
+    "category": "Other",
+    "image": "https://example.com/images/product-12345.png"
+  }]
